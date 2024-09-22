@@ -9,7 +9,7 @@
                 "-g",
                 "${file}",
                 "-o",
-                "${fileDirname}/${fileBasenameNoExtension}",
+                "${fileDirname}/build_Ubuntu64/${fileBasenameNoExtension}.exe",
                 "-lboost_system",
                 "-lcrypto",
                 "-lssl",
