@@ -7,9 +7,10 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}/main.cpp",
+                "${workspaceFolder}/handles.cpp",
                 "-o",
-                "${fileDirname}/build_Ubuntu64/${fileBasenameNoExtension}.exe",
+                "${workspaceFolder}/build_Ubuntu64/chessServer.exe",
                 "-lboost_system",
                 "-lcrypto",
                 "-lssl",
