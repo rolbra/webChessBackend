@@ -9,6 +9,8 @@
                 "-g",
                 "${workspaceFolder}/main.cpp",
                 "${workspaceFolder}/handles.cpp",
+                "${workspaceFolder}/gameData.cpp",
+                "${workspaceFolder}/figureMover.cpp",
                 "-o",
                 "${workspaceFolder}/build_Ubuntu64/chessServer.exe",
                 "-lboost_system",
