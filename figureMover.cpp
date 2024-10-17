@@ -14,16 +14,38 @@ FigureMover::FigureMover(GameData& data)
 
 void FigureMover::moveFigure(std::string from, std::string to)
 {
-    //input: A7, D5
+    int figureIndex = findFigureByPosition(from);
+
+    if(figureIndex == -1)
+        return;
+    else
+        std::cout << "figure " << gameData->positions[figureIndex]["figure"] << std::endl;
     
-    //find figure on A7
-    int i = 8;
-    auto check = gameData->positions[i]["y"];
-    if(check.as_string() == "6")
+    setFigurePosition(figureIndex, to);
+
+}
+
+int FigureMover::findFigureByPosition(const std::string pos)
+{
+    int i = 0;
+
+    std::string posX = pos.substr(0,1);
+    std::string posY = pos.substr(1,1);
+
+    for(; i < 32; i++)
     {
-        std::cout << "move " << gameData->positions[i]["figure"] << std::endl;
+        if(this->gameData->positions[i]["x"].as_string() == posX && this->gameData->positions[i]["y"].as_string() == posY)
+            return i;
     }
-    
-    //Change positions to D5
-    gameData->positions[i]["y"] = json::value::string("5");
+
+    return -1;
+}
+
+void FigureMover::setFigurePosition(const int index, const std::string pos)
+{
+    std::string posX = pos.substr(0,1);
+    std::string posY = pos.substr(1,1);
+
+    this->gameData->positions[index]["x"] = json::value::string(posX);
+    this->gameData->positions[index]["y"] = json::value::string(posY);
 }

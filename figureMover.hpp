@@ -6,4 +6,8 @@ public:
 
 public:
     GameData* gameData;
+
+private:
+    int findFigureByPosition(const std::string pos);
+    void setFigurePosition(const int index, const std::string pos);
 };

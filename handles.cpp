@@ -94,18 +94,36 @@ void handle_post( http_request request )
     }
     if( paths[0] == "move" )
     {
-        //validateMove();
-        figureMover.moveFigure( "A7", "A5" );
+        request.extract_json()
+        .then( [=]( json::value jsonData )
+        {
+            http_response response(status_codes::OK);
+            setResponseHeaders(response);
 
-        http_response response(status_codes::OK);
-        setResponseHeaders(response);
-        
-        json::value responseData;
-        responseData["before"] = json::value::string(std::to_string(gameData.id));
-        updatePositions();
-        responseData["after"] = json::value::string(std::to_string(gameData.id));
-        response.set_body(responseData);
+            std::string from = jsonData["from"].as_string();
+            std::string to = jsonData["to"].as_string();
+             
+            figureMover.moveFigure( from, to );
+            
+            response.set_body(gameData.positions);
 
-        request.reply(response);
+            request.reply(response);
+        })
+        .then( [=]( pplx::task<void> previousTask )
+        {
+            try
+            {
+                previousTask.get(); // This will throw if there was an error in the previous task
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Error extracting JSON: " << e.what() << "\n";
+                
+                json::value responseData;
+                responseData["message"] = json::value::string("Invalid JSON format");
+                request.reply(status_codes::OK, responseData);
+            }
+        })
+        .wait();
     }
 }
