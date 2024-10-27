@@ -8,6 +8,7 @@ public:
     GameData* gameData;
 
 private:
+    std::string translatePosition(const std::string pos);
     int findFigureByPosition(const std::string pos);
     void setFigurePosition(const int index, const std::string pos);
 };

@@ -14,15 +14,37 @@ FigureMover::FigureMover(GameData& data)
 
 void FigureMover::moveFigure(std::string from, std::string to)
 {
-    int figureIndex = findFigureByPosition(from);
+    from = translatePosition(from);
+    to = translatePosition(to);
 
-    if(figureIndex == -1)
+    int movingFigureIndex = findFigureByPosition(from);
+    int beatenFigureIndex = findFigureByPosition(to);
+
+    if(movingFigureIndex == -1)
         return;
     else
-        std::cout << "figure " << gameData->positions[figureIndex]["figure"] << std::endl;
+        std::cout << "figure " << gameData->positions[movingFigureIndex]["figure"] << std::endl;
     
-    setFigurePosition(figureIndex, to);
+    if(beatenFigureIndex != -1)
+    {
+        std::cout << "beats " << gameData->positions[beatenFigureIndex]["figure"] << std::endl;
+        setFigurePosition(beatenFigureIndex, "I8");
+    }
+    setFigurePosition(movingFigureIndex, to);
+}
 
+std::string FigureMover::translatePosition(const std::string pos)
+{
+    //translates A1 to 00, B2 to 11 etc.
+    std::string posX = pos.substr(0,1);
+    posX = toupper(posX[0]) - 17;
+
+    std::string posY = pos.substr(1,1);
+    posY = toupper(posY[0]) - 1;
+
+    std::string newPos = posX + posY;
+    
+    return newPos;
 }
 
 int FigureMover::findFigureByPosition(const std::string pos)
