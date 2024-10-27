@@ -3,9 +3,9 @@
 
 class GameData
 {
-    void initPositions();
 
 public:
+    void initPositions();
     GameData();
 
     int id;

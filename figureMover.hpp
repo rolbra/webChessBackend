@@ -3,6 +3,7 @@ class FigureMover
 public:
     FigureMover(GameData& data);
     void moveFigure(std::string from, std::string to);
+    void resetPositions();
 
 public:
     GameData* gameData;

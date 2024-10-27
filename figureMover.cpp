@@ -71,3 +71,9 @@ void FigureMover::setFigurePosition(const int index, const std::string pos)
     this->gameData->positions[index]["x"] = json::value::string(posX);
     this->gameData->positions[index]["y"] = json::value::string(posY);
 }
+
+void FigureMover::resetPositions()
+{
+    std::cout << "reset positions" << std::endl;
+    this->gameData->initPositions();
+}

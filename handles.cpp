@@ -44,6 +44,7 @@ void handle_post( http_request request )
     setResponseHeaders( response );
 
     auto paths = uri::split_path(uri::decode(request.relative_uri().path()));
+    
     if( paths.empty() || paths.size() > 1 )
     {
         json::value responseData;
@@ -52,6 +53,7 @@ void handle_post( http_request request )
         request.reply(response);
         return;
     }
+    
     if( paths[0] == "positions" )
     {
         request.extract_json()
@@ -80,6 +82,7 @@ void handle_post( http_request request )
         })
         .wait();
     }
+    
     if( paths[0] == "gameStatus" )
     {
         http_response response(status_codes::OK);
@@ -92,6 +95,7 @@ void handle_post( http_request request )
 
         request.reply(response);
     }
+    
     if( paths[0] == "move" )
     {
         request.extract_json()
@@ -104,6 +108,38 @@ void handle_post( http_request request )
             std::string to = jsonData["to"].as_string();
              
             figureMover.moveFigure( from, to );
+            
+            response.set_body(gameData.positions);
+
+            request.reply(response);
+        })
+        .then( [=]( pplx::task<void> previousTask )
+        {
+            try
+            {
+                previousTask.get(); // This will throw if there was an error in the previous task
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Error extracting JSON: " << e.what() << "\n";
+                
+                json::value responseData;
+                responseData["message"] = json::value::string("Invalid JSON format");
+                request.reply(status_codes::OK, responseData);
+            }
+        })
+        .wait();
+    }
+
+    if( paths[0] == "resetGame" )
+    {
+        request.extract_json()
+        .then( [=]( json::value jsonData )
+        {
+            http_response response(status_codes::OK);
+            setResponseHeaders(response);
+
+            figureMover.resetPositions();
             
             response.set_body(gameData.positions);
 
