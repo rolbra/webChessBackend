@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cpprest/http_listener.h>
 #include "handles.hpp"
+#include <unordered_map>
 
 using namespace web;
 using namespace web::http;
@@ -15,8 +16,18 @@ int main(void)
     auto addr = uri.to_uri().to_string();
 
     http_listener listener(addr);
-    listener.support( methods::POST, handle_post );
     listener.support( methods::OPTIONS, handle_options );
+
+    std::unordered_map<utility::string_t, HandlerFunction> routes = {
+        { U("/api/positions"), handlePostGetPositions },
+        { U("/api/resetGame"), handlePostResetGame },
+        { U("/api/moveFigure"), handlePostMoveFigure },
+        { U("/api/gameStatus"), handleGetGameStatus }
+    };
+
+    listener.support(methods::POST, [&](http_request request) {
+        handleRequests(request, routes);
+    });
 
     try
     {

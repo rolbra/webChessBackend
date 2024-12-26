@@ -34,29 +34,21 @@ void updatePositions()
     gameData.id++;
 }
 
-void handle_post( http_request request )
+void handleRequests( http_request request, const std::unordered_map<utility::string_t, HandlerFunction>& routes )
 {
-    std::cout << "incoming POST request\n";
-    std::cout << "-------------------------\n";
-    std::cout << request.to_string() << "\n";
-    
-    http_response response(status_codes::OK);
-    setResponseHeaders( response );
+    auto path = request.request_uri().path();
 
-    auto paths = uri::split_path(uri::decode(request.relative_uri().path()));
-    
-    if( paths.empty() || paths.size() > 1 )
-    {
-        json::value responseData;
-        responseData["help"] = json::value::string("supported services: api/positions");
-        response.set_body(responseData);
-        request.reply(response);
-        return;
+    auto it = routes.find(path);
+    if (it != routes.end()) {
+        it->second(request); // Call the associated handler
+    } else {
+        request.reply(status_codes::NotFound, U("Not Found"));
     }
-    
-    if( paths[0] == "positions" )
-    {
-        request.extract_json()
+}
+
+void handlePostGetPositions(web::http::http_request request)
+{
+    request.extract_json()
         .then( [=]( json::value jsonData )
         {
             http_response response(status_codes::OK);
@@ -81,24 +73,43 @@ void handle_post( http_request request )
             }
         })
         .wait();
-    }
-    
-    if( paths[0] == "gameStatus" )
-    {
-        http_response response(status_codes::OK);
-        setResponseHeaders(response);
-        
-        json::value responseData;
-        responseData["Matchup"] = json::value::string("Benni vs. Roli");
-        responseData["Game created"] = json::value::string("Oct/01/2024");
-        response.set_body(responseData);
+}
 
-        request.reply(response);
-    }
-    
-    if( paths[0] == "move" )
-    {
-        request.extract_json()
+void handlePostResetGame( http_request request )
+{
+    request.extract_json()
+        .then( [=]( json::value jsonData )
+        {
+            http_response response(status_codes::OK);
+            setResponseHeaders(response);
+
+            figureMover.resetPositions();
+
+            response.set_body(gameData.positions);
+
+            request.reply(response);
+        })
+        .then( [=]( pplx::task<void> previousTask )
+        {
+            try
+            {
+                previousTask.get(); // This will throw if there was an error in the previous task
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Error extracting JSON: " << e.what() << "\n";
+                
+                json::value responseData;
+                responseData["message"] = json::value::string("Invalid JSON format");
+                request.reply(status_codes::OK, responseData);
+            }
+        })
+        .wait();
+}
+
+void handlePostMoveFigure( http_request request )
+{
+    request.extract_json()
         .then( [=]( json::value jsonData )
         {
             http_response response(status_codes::OK);
@@ -129,37 +140,17 @@ void handle_post( http_request request )
             }
         })
         .wait();
-    }
+}
 
-    if( paths[0] == "resetGame" )
-    {
-        request.extract_json()
-        .then( [=]( json::value jsonData )
-        {
-            http_response response(status_codes::OK);
-            setResponseHeaders(response);
+void handleGetGameStatus( http_request request )
+{
+    http_response response(status_codes::OK);
+    setResponseHeaders(response);
+    
+    json::value responseData;
+    responseData["Matchup"] = json::value::string("Benni vs. Roli");
+    responseData["Game created"] = json::value::string("Oct/01/2024");
+    response.set_body(responseData);
 
-            figureMover.resetPositions();
-            
-            response.set_body(gameData.positions);
-
-            request.reply(response);
-        })
-        .then( [=]( pplx::task<void> previousTask )
-        {
-            try
-            {
-                previousTask.get(); // This will throw if there was an error in the previous task
-            }
-            catch (const std::exception& e)
-            {
-                std::cerr << "Error extracting JSON: " << e.what() << "\n";
-                
-                json::value responseData;
-                responseData["message"] = json::value::string("Invalid JSON format");
-                request.reply(status_codes::OK, responseData);
-            }
-        })
-        .wait();
-    }
+    request.reply(response);
 }
