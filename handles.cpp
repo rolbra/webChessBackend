@@ -1,7 +1,8 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
-#include "handles.hpp"
+#include "figure.hpp"
 #include "gameData.hpp"
+#include "handles.hpp"
 #include "figureMover.hpp"
 
 using namespace web;
@@ -31,7 +32,7 @@ void handle_options( http_request request )
 
 void updatePositions()
 {
-    gameData.id++;
+    
 }
 
 void handleRequests( http_request request, const std::unordered_map<utility::string_t, HandlerFunction>& routes )
@@ -117,7 +118,8 @@ void handlePostMoveFigure( http_request request )
 
             std::string from = jsonData["from"].as_string();
             std::string to = jsonData["to"].as_string();
-             
+            
+            //figureMover.evaluateMove(from, to);
             figureMover.moveFigure( from, to );
             
             response.set_body(gameData.positions);

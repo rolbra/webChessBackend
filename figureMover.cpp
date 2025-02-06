@@ -2,6 +2,7 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
 
+#include "figure.hpp"
 #include "gameData.hpp"
 #include "figureMover.hpp"
 
@@ -10,6 +11,31 @@ using namespace web;
 FigureMover::FigureMover(GameData& data)
 {
     this->gameData = &data;
+}
+
+bool FigureMover::evaluateMove(std::string from, std::string to)
+{
+    from = translatePosition(from);
+    to = translatePosition(to);
+
+    int movingFigureIndex = findFigureIndexByPosition(from);
+    int destinationFigureIndex = findFigureIndexByPosition(to);
+
+    if(movingFigureIndex == -1)
+        return false;
+
+    auto figure = gameData->positions[movingFigureIndex];
+    std::string figureName = figure["figure"].as_string();
+    int srcX = figure["x"].as_integer();
+    int srcY = figure["y"].as_integer();
+
+    int destX = gameData->positions[destinationFigureIndex]["x"].as_integer();
+    int destY = gameData->positions[destinationFigureIndex]["y"].as_integer();
+
+    //Is destination on field?
+    //Is 
+
+    return true;
 };
 
 void FigureMover::moveFigure(std::string from, std::string to)
@@ -17,8 +43,8 @@ void FigureMover::moveFigure(std::string from, std::string to)
     from = translatePosition(from);
     to = translatePosition(to);
 
-    int movingFigureIndex = findFigureByPosition(from);
-    int beatenFigureIndex = findFigureByPosition(to);
+    int movingFigureIndex = findFigureIndexByPosition(from);
+    int beatenFigureIndex = findFigureIndexByPosition(to);
 
     if(movingFigureIndex == -1)
         return;
@@ -28,7 +54,7 @@ void FigureMover::moveFigure(std::string from, std::string to)
     if(beatenFigureIndex != -1)
     {
         std::cout << "beats " << gameData->positions[beatenFigureIndex]["figure"] << std::endl;
-        setFigurePosition(beatenFigureIndex, "I8");
+        setFigurePosition(beatenFigureIndex, "I8");     //todo: remove beaten figure from board
     }
     setFigurePosition(movingFigureIndex, to);
 }
@@ -47,7 +73,7 @@ std::string FigureMover::translatePosition(const std::string pos)
     return newPos;
 }
 
-int FigureMover::findFigureByPosition(const std::string pos)
+int FigureMover::findFigureIndexByPosition(const std::string pos)
 {
     int i = 0;
 
