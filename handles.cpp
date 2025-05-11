@@ -11,6 +11,14 @@ using namespace web::http;
 GameData gameData;
 FigureMover figureMover(gameData);
 
+void logRequest( http_request request )
+{
+    static int requestCounter = 1;
+    std::cout << "incoming request no " << requestCounter++ << "\n";
+    std::cout << "-------------------------\n";
+    std::cout << request.to_string() << "\n";
+}
+
 void setResponseHeaders( http_response &response )
 {
     response.headers().add(U("Access-Control-Allow-Methods"), U("POST, OPTIONS"));
@@ -20,10 +28,6 @@ void setResponseHeaders( http_response &response )
 
 void handle_options( http_request request )
 {
-    std::cout << "incoming OPTIONS request\n";
-    std::cout << "-------------------------\n";
-    std::cout << request.to_string() << "\n";
-    
     http_response response(status_codes::OK);
     setResponseHeaders( response );
 
@@ -41,6 +45,7 @@ void handleRequests( http_request request, const std::unordered_map<utility::str
 
     auto it = routes.find(path);
     if (it != routes.end()) {
+        logRequest( request );
         it->second(request); // Call the associated handler
     } else {
         request.reply(status_codes::NotFound, U("Not Found"));
@@ -55,6 +60,8 @@ void handlePostGetPositions(web::http::http_request request)
             http_response response(status_codes::OK);
             setResponseHeaders(response);
             response.set_body(gameData.positions);
+
+            std::cout << gameData.positions;
 
             request.reply(response);
         })

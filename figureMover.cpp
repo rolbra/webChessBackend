@@ -49,11 +49,11 @@ void FigureMover::moveFigure(std::string from, std::string to)
     if(movingFigureIndex == -1)
         return;
     else
-        std::cout << "figure " << gameData->positions[movingFigureIndex]["figure"] << std::endl;
+        std::cout << "figure " << gameData->positions[movingFigureIndex]["name"] << std::endl;
     
     if(beatenFigureIndex != -1)
     {
-        std::cout << "beats " << gameData->positions[beatenFigureIndex]["figure"] << std::endl;
+        std::cout << "beats " << gameData->positions[beatenFigureIndex]["name"] << std::endl;
         setFigurePosition(beatenFigureIndex, "I8");     //todo: remove beaten figure from board
     }
     setFigurePosition(movingFigureIndex, to);

@@ -55,7 +55,7 @@ void GameData::createFigures()
 
 void GameData::initPosition(int index, Figure figure)
 {
-    positions[index]["figure"] = json::value::string(figure.getName());
+    positions[index]["name"] = json::value::string(figure.getName());
     positions[index]["x"] = json::value::string(figure.getPosXAsChar());
     positions[index]["y"] = json::value::string(figure.getPosYAsChar());
     positions[index]["code"] = json::value::string(figure.getCode());
