@@ -24,16 +24,18 @@ bool FigureMover::evaluateMove(std::string from, std::string to)
     if(movingFigureIndex == -1)
         return false;
 
-    auto figure = gameData->positions[movingFigureIndex];
-    std::string figureName = figure["figure"].as_string();
-    int srcX = figure["x"].as_integer();
-    int srcY = figure["y"].as_integer();
+    auto jsonData = gameData->positions[movingFigureIndex];
+    std::string figureName = jsonData["name"].as_string();
+    int srcX = jsonData["x"].as_integer();
+    int srcY = jsonData["y"].as_integer();
+    Figure figure( jsonData["name"].as_string(), jsonData["x"].as_integer(), jsonData["y"].as_integer(), jsonData["code"].as_string());
 
-    int destX = gameData->positions[destinationFigureIndex]["x"].as_integer();
-    int destY = gameData->positions[destinationFigureIndex]["y"].as_integer();
+    //test: use fields and Figure2 objects for evaluation
+    Figure2* figureFrom = gameData->fields[from[0] - '0'][from[1] - '0'];
+    if(figureFrom == nullptr )
+        return false;
 
-    //Is destination on field?
-    //Is 
+    
 
     return true;
 };
@@ -80,9 +82,14 @@ int FigureMover::findFigureIndexByPosition(const std::string pos)
     std::string posX = pos.substr(0,1);
     std::string posY = pos.substr(1,1);
 
+    int posIntX = std::stoi(posX);
+    int posIntY = std::stoi(posY);
+
     for(; i < 32; i++)
     {
-        if(this->gameData->positions[i]["x"].as_string() == posX && this->gameData->positions[i]["y"].as_string() == posY)
+        auto tmpX = this->gameData->positions[i]["x"].as_integer();
+        auto tmpY = this->gameData->positions[i]["y"].as_integer();
+        if(this->gameData->positions[i]["x"].as_integer() == posIntX && this->gameData->positions[i]["y"].as_integer() == posIntY)
             return i;
     }
 

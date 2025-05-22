@@ -61,3 +61,28 @@ std::string Figure::getCode()
 {
     return code;
 }
+
+
+
+
+
+//-----------------___Figure2
+
+Figure2::Figure2(Id id, int posX, int posY, Color color, Type type)
+{
+    this->id = id;
+    this->color = color;
+    this->type = type;
+    this->x = posX;
+    this->y = posY;
+}
+
+int Figure2::getXasInt()
+{
+    return x;
+}
+
+int Figure2::getYasInt()
+{
+    return y;
+}

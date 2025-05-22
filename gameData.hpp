@@ -1,5 +1,6 @@
 #include <cpprest/http_listener.h>
 #include <cpprest/json.h>
+#include <array>
 
 class GameData
 {
@@ -8,9 +9,12 @@ public:
     GameData();
 
     web::json::value positions; //this json-string transports the figure informations to the client
+    Figure2 *fields[8][8];       //the json-info will be mapped with this 2d array to have a connection between fields and figures
+    std::array<Figure2*, 32> figures;
 
 private:
     void initPosition(int index, Figure figure);
+    void updateFields();
     void createFigures();
     
     Figure rook_black_0;

@@ -39,3 +39,78 @@ private:
     int y;
     std::string code;
 };
+
+
+
+enum class Color
+{
+    WHITE,
+    BLACK
+};
+
+enum class Type
+{
+    ROOK,
+    KNIGHT,
+    BISHOP,
+    QUEEN,
+    KING,
+    PAWN
+};
+
+enum Id
+{
+    ROOKBLACK_0,
+    KNIGHTBLACK_0,
+    BISHOPBLACK_0,
+    QUEENBLACK,
+    KING_BLACK, //todo: delete define KINGBLACK
+    BISHOPBLACK_1,
+    KNIGHTBLACK_1,
+    ROOKBLACK_1,
+
+    PAWNBLACK_0,
+    PAWNBLACK_1,
+    PAWNBLACK_2,
+    PAWNBLACK_3,
+    PAWNBLACK_4,
+    PAWNBLACK_5,
+    PAWNBLACK_6,
+    PAWNBLACK_7,
+
+    ROOKWHITE_0,
+    KNIGHTWHITE_0,
+    BISHOPWHITE_0,
+    QUEENWHITE,
+    KING_WHITE, //todo: delete define KINGWHITE
+    BISHOPWHITE_1,
+    KNIGHTWHITE_1,
+    ROOKWHITE_1,
+
+    PAWNWHITE_0,
+    PAWNWHITE_1,
+    PAWNWHITE_2,
+    PAWNWHITE_3,
+    PAWNWHITE_4,
+    PAWNWHITE_5,
+    PAWNWHITE_6,
+    PAWNWHITE_7
+};
+
+class Figure2
+{
+
+public:
+    Figure2();
+    Figure2(Id id, int posX, int posY, Color color, Type type);
+
+    int getXasInt();
+    int getYasInt();
+
+private:
+    Id id;
+    int x;
+    int y;
+    Color color;
+    Type type;
+};
