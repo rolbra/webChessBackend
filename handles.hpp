@@ -1,3 +1,12 @@
+#pragma once
+
+#include <cpprest/http_listener.h>
+#include <cpprest/json.h>
+
+#include "figure.hpp"
+#include "gameData.hpp"
+#include "figureMover.hpp"
+
 void handle_options( web::http::http_request request );
 
 using HandlerFunction = std::function<void(web::http::http_request)>;

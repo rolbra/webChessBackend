@@ -1,7 +1,3 @@
-#include <cpprest/http_listener.h>
-#include <cpprest/json.h>
-
-#include "figure.hpp"
 #include "gameData.hpp"
 
 using namespace web;

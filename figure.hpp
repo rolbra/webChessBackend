@@ -1,3 +1,7 @@
+#pragma once
+
+#include <string>
+
 #define ROOKBLACK "&#x265C;"        //todo: information how the figure is displayed on the client should better be stored on the client. Possible that the different clients exists with different implementations. One client could use the ascii code, another could use an image file
 #define KNIGHTBLACK "&#x265E;"
 #define BISHOPBLACK "&#x265D;"

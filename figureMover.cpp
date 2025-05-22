@@ -1,9 +1,3 @@
-#include <string>
-#include <cpprest/http_listener.h>
-#include <cpprest/json.h>
-
-#include "figure.hpp"
-#include "gameData.hpp"
 #include "figureMover.hpp"
 
 using namespace web;

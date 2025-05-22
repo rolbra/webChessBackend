@@ -1,3 +1,13 @@
+#pragma once
+
+#include <string>
+#include <cpprest/http_listener.h>
+#include <cpprest/json.h>
+
+#include "figure.hpp"
+#include "gameData.hpp"
+
+
 class FigureMover
 {
 public:

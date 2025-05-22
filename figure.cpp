@@ -1,4 +1,3 @@
-#include <string>
 #include "figure.hpp"
 
 Figure::Figure()
