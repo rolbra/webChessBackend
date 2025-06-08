@@ -24,7 +24,7 @@ public:
     Figure();
     Figure(std::string name, int posX, int posY, std::string code);
 
-    void init(std::string name, int posX, int posY, std::string code);
+    void init(std::string name, int posX, int posY, std::string code, std::string color, std::string type);
 
     std::string getName();
 
@@ -36,10 +36,14 @@ public:
     std::string getPosYAsChar();
 
     std::string getCode();
+    std::string getColor();
+    std::string getType();
 
 private:
     std::string name;
     int x;
     int y;
     std::string code;
+    std::string color;
+    std::string type;
 };

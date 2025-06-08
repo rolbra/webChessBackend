@@ -11,42 +11,42 @@ GameData::GameData()
 
 void GameData::createFigures()
 {
-    rook_black_0.init("rook_black_0", 0, 7, ROOKBLACK);
-    knight_black_0.init("knight_black_0", 1, 7, KNIGHTBLACK);
-    bishop_black_0.init("bishop_black_0", 2, 7, BISHOPBLACK);
-    queen_black.init("queen_black", 3, 7, QUEENTBLACK);
-    king_black.init("king_black", 4, 7, KINGBLACK);
-    bishop_black_1.init("bishop_black_1", 5, 7, BISHOPBLACK);
-    knight_black_1.init("knight_black_1", 6, 7, KNIGHTBLACK);
-    rook_black_1.init("rook_black_1", 7, 7, ROOKBLACK);
+    rook_black_0.init("rook_black_0", 0, 7, ROOKBLACK, "black", "rook");
+    knight_black_0.init("knight_black_0", 1, 7, KNIGHTBLACK, "black", "knight");
+    bishop_black_0.init("bishop_black_0", 2, 7, BISHOPBLACK, "black", "bishop");
+    queen_black.init("queen_black", 3, 7, QUEENTBLACK, "black", "queen");
+    king_black.init("king_black", 4, 7, KINGBLACK, "black", "king");
+    bishop_black_1.init("bishop_black_1", 5, 7, BISHOPBLACK, "black", "bishop");
+    knight_black_1.init("knight_black_1", 6, 7, KNIGHTBLACK, "black", "knight");
+    rook_black_1.init("rook_black_1", 7, 7, ROOKBLACK, "black", "rook");
 
-    pawn_black_0.init("pawn_black_0", 0, 6, PAWNBLACK);
-    pawn_black_1.init("pawn_black_1", 1, 6, PAWNBLACK);
-    pawn_black_2.init("pawn_black_2", 2, 6, PAWNBLACK);
-    pawn_black_3.init("pawn_black_3", 3, 6, PAWNBLACK);
-    pawn_black_4.init("pawn_black_4", 4, 6, PAWNBLACK);
-    pawn_black_5.init("pawn_black_5", 5, 6, PAWNBLACK);
-    pawn_black_6.init("pawn_black_6", 6, 6, PAWNBLACK);
-    pawn_black_7.init("pawn_black_7", 7, 6, PAWNBLACK);
+    pawn_black_0.init("pawn_black_0", 0, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_1.init("pawn_black_1", 1, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_2.init("pawn_black_2", 2, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_3.init("pawn_black_3", 3, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_4.init("pawn_black_4", 4, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_5.init("pawn_black_5", 5, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_6.init("pawn_black_6", 6, 6, PAWNBLACK, "black", "pawn");
+    pawn_black_7.init("pawn_black_7", 7, 6, PAWNBLACK, "black", "pawn");
 
 
-    rook_white_0.init("rook_white_0", 0, 0, ROOKWHITE);
-    knight_white_0.init("knight_white_0", 1, 0, KNIGHTWHITE);
-    bishop_white_0.init("bishop_white_0", 2, 0, BISHOPWHITE);
-    queen_white.init("queen_white", 3, 0, QUEENTWHITE);
-    king_white.init("king_white", 4, 0, KINGWHITE);
-    bishop_white_1.init("bishop_white_1", 5, 0, BISHOPWHITE);
-    knight_white_1.init("knight_white_1", 6, 0, KNIGHTWHITE);
-    rook_white_1.init("rook_white_1", 7, 0, ROOKWHITE);
+    rook_white_0.init("rook_white_0", 0, 0, ROOKWHITE, "white", "rook");
+    knight_white_0.init("knight_white_0", 1, 0, KNIGHTWHITE, "white", "knight");
+    bishop_white_0.init("bishop_white_0", 2, 0, BISHOPWHITE, "white", "bishop");
+    queen_white.init("queen_white", 3, 0, QUEENTWHITE, "white", "queen");
+    king_white.init("king_white", 4, 0, KINGWHITE, "white", "king");
+    bishop_white_1.init("bishop_white_1", 5, 0, BISHOPWHITE, "white", "bishop");
+    knight_white_1.init("knight_white_1", 6, 0, KNIGHTWHITE, "white", "knight");
+    rook_white_1.init("rook_white_1", 7, 0, ROOKWHITE, "white", "rook");
 
-    pawn_white_0.init("pawn_white_0", 0, 1, PAWNWHITE);
-    pawn_white_1.init("pawn_white_1", 1, 1, PAWNWHITE);
-    pawn_white_2.init("pawn_white_2", 2, 1, PAWNWHITE);
-    pawn_white_3.init("pawn_white_3", 3, 1, PAWNWHITE);
-    pawn_white_4.init("pawn_white_4", 4, 1, PAWNWHITE);
-    pawn_white_5.init("pawn_white_5", 5, 1, PAWNWHITE);
-    pawn_white_6.init("pawn_white_6", 6, 1, PAWNWHITE);
-    pawn_white_7.init("pawn_white_7", 7, 1, PAWNWHITE);
+    pawn_white_0.init("pawn_white_0", 0, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_1.init("pawn_white_1", 1, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_2.init("pawn_white_2", 2, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_3.init("pawn_white_3", 3, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_4.init("pawn_white_4", 4, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_5.init("pawn_white_5", 5, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_6.init("pawn_white_6", 6, 1, PAWNWHITE, "white", "pawn");
+    pawn_white_7.init("pawn_white_7", 7, 1, PAWNWHITE, "white", "pawn");
 }
 
 void GameData::initPosition(int index, Figure figure)
@@ -55,6 +55,8 @@ void GameData::initPosition(int index, Figure figure)
     positions[index]["x"] = json::value::string(figure.getPosXAsChar());
     positions[index]["y"] = json::value::string(figure.getPosYAsChar());
     positions[index]["code"] = json::value::string(figure.getCode());
+    positions[index]["color"] = json::value::string(figure.getColor());
+    positions[index]["type"] = json::value::string(figure.getType());
 }
 
 void GameData::initPositions()

@@ -13,12 +13,14 @@ Figure::Figure(std::string name, int posX, int posY, std::string code)
     this->code = code;
 }
 
-void Figure::init(std::string name, int posX, int posY, std::string code)
+void Figure::init(std::string name, int posX, int posY, std::string code, std::string color, std::string type)
 {
     this->name = name;
     x = posX;
     y = posY;
     this->code = code;
+    this->color = color;
+    this->type = type;
 }
 
 std::string Figure::getName()
@@ -59,4 +61,14 @@ std::string Figure::getPosYAsChar()
 std::string Figure::getCode()
 {
     return code;
+}
+
+std::string Figure::getColor()
+{
+    return color;
+}
+
+std::string Figure::getType()
+{
+    return type;
 }
