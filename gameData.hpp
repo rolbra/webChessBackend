@@ -4,6 +4,7 @@
 #include <cpprest/json.h>
 
 #include "figure.hpp"
+#include "player.hpp"
 
 class GameData
 {
@@ -12,6 +13,7 @@ public:
     GameData();
 
     web::json::value positions; //this json-string transports the figure informations to the client
+    void switchActivePlayer();
 
 private:
     void initPosition(int index, Figure figure);
@@ -53,4 +55,8 @@ private:
     Figure pawn_white_5;
     Figure pawn_white_6;
     Figure pawn_white_7;
+
+    Player playerWhite;
+    Player playerBlack;
+    std::shared_ptr<Player> activePlayer;
 };

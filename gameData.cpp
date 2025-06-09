@@ -7,6 +7,10 @@ GameData::GameData()
 {
     createFigures();
     initPositions();
+
+    playerWhite.init( 0, "Pris" );
+    playerBlack.init( 1, "Roli" );
+    this->activePlayer = std::make_shared<Player>(playerWhite);
 }
 
 void GameData::createFigures()
@@ -47,6 +51,21 @@ void GameData::createFigures()
     pawn_white_5.init("pawn_white_5", 5, 1, PAWNWHITE, "white", "pawn");
     pawn_white_6.init("pawn_white_6", 6, 1, PAWNWHITE, "white", "pawn");
     pawn_white_7.init("pawn_white_7", 7, 1, PAWNWHITE, "white", "pawn");
+}
+
+void GameData::switchActivePlayer()
+{
+    if(activePlayer->getId() == playerWhite.getId())
+        activePlayer = std::make_shared<Player>(playerBlack);
+    else if(activePlayer->getId() == playerBlack.getId())
+        activePlayer = std::make_shared<Player>(playerWhite);
+    else
+    {
+        std::cout << "error switching active player";
+        return;
+    }
+
+    std::cout << "next move performs " << activePlayer->getName() << std::endl;
 }
 
 void GameData::initPosition(int index, Figure figure)

@@ -123,6 +123,7 @@ void handlePostMoveFigure( http_request request )
             
             //figureMover.evaluateMove(from, to);
             figureMover.moveFigure( from, to );
+            gameData.switchActivePlayer();
             
             response.set_body(gameData.positions);
 

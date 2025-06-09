@@ -12,6 +12,7 @@
                 "${workspaceFolder}/gameData.cpp",
                 "${workspaceFolder}/figure.cpp",
                 "${workspaceFolder}/figureMover.cpp",
+                "${workspaceFolder}/player.cpp",
                 "-o",
                 "${workspaceFolder}/build_Ubuntu64/chessServer.exe",
                 "-lboost_system",
