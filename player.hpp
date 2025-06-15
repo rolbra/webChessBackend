@@ -10,7 +10,7 @@ class Player
 public:
     Player();
     void init(int id, std::string name);
-    int getId();
-    std::string getName();
+    int getId() const;
+    std::string getName() const;
     void setName(std::string name);
 };

@@ -6,6 +6,8 @@
 #include "figure.hpp"
 #include "player.hpp"
 
+typedef utility::string_t utilString;
+
 class GameData
 {
 public:
@@ -17,6 +19,7 @@ public:
 
 private:
     void initPosition(int index, Figure figure);
+    void setTransferdata();
     void createFigures();
     
     Figure rook_black_0;

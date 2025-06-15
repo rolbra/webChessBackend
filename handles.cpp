@@ -56,7 +56,8 @@ void handlePostGetPositions(web::http::http_request request)
             setResponseHeaders(response);
             response.set_body(gameData.positions);
 
-            std::cout << gameData.positions;
+            std::cout << gameData.positions << std::endl;
+            std::flush( std::cout );
 
             request.reply(response);
         })

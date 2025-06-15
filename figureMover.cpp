@@ -18,13 +18,13 @@ bool FigureMover::evaluateMove(std::string from, std::string to)
     if(movingFigureIndex == -1)
         return false;
 
-    auto figure = gameData->positions[movingFigureIndex];
+    auto figure = gameData->positions["figures"][movingFigureIndex];
     std::string figureName = figure["figure"].as_string();
     int srcX = figure["x"].as_integer();
     int srcY = figure["y"].as_integer();
 
-    int destX = gameData->positions[destinationFigureIndex]["x"].as_integer();
-    int destY = gameData->positions[destinationFigureIndex]["y"].as_integer();
+    int destX = gameData->positions["figures"][destinationFigureIndex]["x"].as_integer();
+    int destY = gameData->positions["figures"][destinationFigureIndex]["y"].as_integer();
 
     //Is destination on field?
     //Is 
@@ -43,11 +43,11 @@ void FigureMover::moveFigure(std::string from, std::string to)
     if(movingFigureIndex == -1)
         return;
     else
-        std::cout << "figure " << gameData->positions[movingFigureIndex]["name"] << std::endl;
+        std::cout << "figure " << gameData->positions["figures"][movingFigureIndex]["name"] << std::endl;
     
     if(beatenFigureIndex != -1)
     {
-        std::cout << "beats " << gameData->positions[beatenFigureIndex]["name"] << std::endl;
+        std::cout << "beats " << gameData->positions["figures"][beatenFigureIndex]["name"] << std::endl;
         setFigurePosition(beatenFigureIndex, "I8");     //todo: remove beaten figure from board
     }
     setFigurePosition(movingFigureIndex, to);
@@ -76,7 +76,7 @@ int FigureMover::findFigureIndexByPosition(const std::string pos)
 
     for(; i < 32; i++)
     {
-        if(this->gameData->positions[i]["x"].as_string() == posX && this->gameData->positions[i]["y"].as_string() == posY)
+        if(this->gameData->positions["figures"][i]["x"].as_string() == posX && this->gameData->positions["figures"][i]["y"].as_string() == posY)
             return i;
     }
 
@@ -88,8 +88,8 @@ void FigureMover::setFigurePosition(const int index, const std::string pos)
     std::string posX = pos.substr(0,1);
     std::string posY = pos.substr(1,1);
 
-    this->gameData->positions[index]["x"] = json::value::string(posX);
-    this->gameData->positions[index]["y"] = json::value::string(posY);
+    this->gameData->positions["figures"][index]["x"] = json::value::string(posX);
+    this->gameData->positions["figures"][index]["y"] = json::value::string(posY);
 }
 
 void FigureMover::resetPositions()

@@ -6,11 +6,13 @@ using namespace web::http;
 GameData::GameData()
 {
     createFigures();
-    initPositions();
-
+    
     playerWhite.init( 0, "Pris" );
     playerBlack.init( 1, "Roli" );
     this->activePlayer = std::make_shared<Player>(playerWhite);
+    
+    setTransferdata();
+    initPositions();
 }
 
 void GameData::createFigures()
@@ -70,17 +72,33 @@ void GameData::switchActivePlayer()
 
 void GameData::initPosition(int index, Figure figure)
 {
-    positions[index]["name"] = json::value::string(figure.getName());
-    positions[index]["x"] = json::value::string(figure.getPosXAsChar());
-    positions[index]["y"] = json::value::string(figure.getPosYAsChar());
-    positions[index]["code"] = json::value::string(figure.getCode());
-    positions[index]["color"] = json::value::string(figure.getColor());
-    positions[index]["type"] = json::value::string(figure.getType());
+    const auto figures = utilString("figures");
+
+    positions[figures][index]["name"] = json::value::string(figure.getName());
+    positions[figures][index]["x"] = json::value::string(figure.getPosXAsChar());
+    positions[figures][index]["y"] = json::value::string(figure.getPosYAsChar());
+    positions[figures][index]["code"] = json::value::string(figure.getCode());
+    positions[figures][index]["color"] = json::value::string(figure.getColor());
+    positions[figures][index]["type"] = json::value::string(figure.getType());
+}
+
+void GameData::setTransferdata()
+{
+    positions[utilString("gameInfo")][utilString("id")] = json::value::number( 100 );
+    
+    positions[utilString("playerWhite")][utilString("id")] = json::value::number( playerWhite.getId() );
+    positions[utilString("playerWhite")][utilString("name")] = json::value::string( playerWhite.getName() );
+    
+    positions[utilString("playerBlack")][utilString("id")] = json::value::number( playerBlack.getId() );
+    positions[utilString("playerBlack")][utilString("name")] = json::value::string( playerBlack.getName() );
+
+    positions[utilString("activePlayer")][utilString("id")] = json::value::number( activePlayer->getId() );
+    positions[utilString("activePlayer")][utilString("name")] = json::value::string( activePlayer->getName() );
 }
 
 void GameData::initPositions()
 {
-    int index=0;
+    int index=0; //todo: use a loop for init
     initPosition(index++, rook_black_0);
     initPosition(index++, knight_black_0);
     initPosition(index++, bishop_black_0);
