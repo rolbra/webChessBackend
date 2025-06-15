@@ -11,6 +11,6 @@ public:
     Player();
     void init(int id, std::string name);
     int getId() const;
-    std::string getName() const;
+    std::string getName();
     void setName(std::string name);
 };

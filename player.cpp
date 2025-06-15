@@ -15,7 +15,7 @@ int Player::getId() const
     return id;
 }
 
-std::string Player::getName() const
+std::string Player::getName()
 {
     return name;
 }

@@ -67,6 +67,9 @@ void GameData::switchActivePlayer()
         return;
     }
 
+    this->positions["activePlayer"]["id"] = json::value::number(this->activePlayer->getId());
+    this->positions["activePlayer"]["name"] = json::value::string(activePlayer->getName());
+
     std::cout << "next move performs " << activePlayer->getName() << std::endl;
 }
 
